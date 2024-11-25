@@ -1,0 +1,978 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> declaracao_list statement_list
+Rule 2     programa -> empty
+Rule 3     declaracao_list -> declaracao NEWLINE declaracao_list
+Rule 4     declaracao_list -> empty
+Rule 5     declaracao -> INT ID declaracao_prime
+Rule 6     declaracao -> BOOLEAN ID declaracao_prime
+Rule 7     declaracao_prime -> ASSIGN expr
+Rule 8     declaracao_prime -> empty
+Rule 9     statement_list -> statement NEWLINE statement_list
+Rule 10    statement_list -> empty
+Rule 11    statement -> ID ASSIGN expr
+Rule 12    statement -> IMPRIME LPAREN expr RPAREN
+Rule 13    expr -> operator comparison
+Rule 14    operator -> term expr_prime
+Rule 15    expr_prime -> PLUS term expr_prime
+Rule 16    expr_prime -> MINUS term expr_prime
+Rule 17    expr_prime -> empty
+Rule 18    term -> factor term_prime
+Rule 19    term_prime -> TIMES factor term_prime
+Rule 20    term_prime -> DIVIDE factor term_prime
+Rule 21    term_prime -> empty
+Rule 22    factor -> NUMBER
+Rule 23    factor -> ID
+Rule 24    factor -> LPAREN expr RPAREN
+Rule 25    factor -> LOGIC
+Rule 26    comparison -> comparison_op operator comparison
+Rule 27    comparison -> empty
+Rule 28    comparison_op -> EQ
+Rule 29    comparison_op -> NEQ
+Rule 30    comparison_op -> LT
+Rule 31    comparison_op -> GT
+Rule 32    comparison_op -> LE
+Rule 33    comparison_op -> GE
+Rule 34    empty -> <empty>
+
+Terminals, with rules where they appear
+
+ASSIGN               : 7 11
+BOOLEAN              : 6
+DIVIDE               : 20
+EQ                   : 28
+GE                   : 33
+GT                   : 31
+ID                   : 5 6 11 23
+IMPRIME              : 12
+INT                  : 5
+LE                   : 32
+LOGIC                : 25
+LPAREN               : 12 24
+LT                   : 30
+MINUS                : 16
+NEQ                  : 29
+NEWLINE              : 3 9
+NUMBER               : 22
+PLUS                 : 15
+RPAREN               : 12 24
+TIMES                : 19
+error                : 
+
+Nonterminals, with rules where they appear
+
+comparison           : 13 26
+comparison_op        : 26
+declaracao           : 3
+declaracao_list      : 1 3
+declaracao_prime     : 5 6
+empty                : 2 4 8 10 17 21 27
+expr                 : 7 11 12 24
+expr_prime           : 14 15 16
+factor               : 18 19 20
+operator             : 13 26
+programa             : 0
+statement            : 9
+statement_list       : 1 9
+term                 : 14 15 16
+term_prime           : 18 19 20
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . declaracao_list statement_list
+    (2) programa -> . empty
+    (3) declaracao_list -> . declaracao NEWLINE declaracao_list
+    (4) declaracao_list -> . empty
+    (34) empty -> .
+    (5) declaracao -> . INT ID declaracao_prime
+    (6) declaracao -> . BOOLEAN ID declaracao_prime
+
+    $end            reduce using rule 34 (empty -> .)
+    ID              reduce using rule 34 (empty -> .)
+    IMPRIME         reduce using rule 34 (empty -> .)
+    INT             shift and go to state 5
+    BOOLEAN         shift and go to state 6
+
+    programa                       shift and go to state 1
+    declaracao_list                shift and go to state 2
+    empty                          shift and go to state 3
+    declaracao                     shift and go to state 4
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> declaracao_list . statement_list
+    (9) statement_list -> . statement NEWLINE statement_list
+    (10) statement_list -> . empty
+    (11) statement -> . ID ASSIGN expr
+    (12) statement -> . IMPRIME LPAREN expr RPAREN
+    (34) empty -> .
+
+    ID              shift and go to state 10
+    IMPRIME         shift and go to state 11
+    $end            reduce using rule 34 (empty -> .)
+
+    statement_list                 shift and go to state 7
+    statement                      shift and go to state 8
+    empty                          shift and go to state 9
+
+state 3
+
+    (2) programa -> empty .
+    (4) declaracao_list -> empty .
+
+  ! reduce/reduce conflict for $end resolved using rule 2 (programa -> empty .)
+    $end            reduce using rule 2 (programa -> empty .)
+    ID              reduce using rule 4 (declaracao_list -> empty .)
+    IMPRIME         reduce using rule 4 (declaracao_list -> empty .)
+
+  ! $end            [ reduce using rule 4 (declaracao_list -> empty .) ]
+
+
+state 4
+
+    (3) declaracao_list -> declaracao . NEWLINE declaracao_list
+
+    NEWLINE         shift and go to state 12
+
+
+state 5
+
+    (5) declaracao -> INT . ID declaracao_prime
+
+    ID              shift and go to state 13
+
+
+state 6
+
+    (6) declaracao -> BOOLEAN . ID declaracao_prime
+
+    ID              shift and go to state 14
+
+
+state 7
+
+    (1) programa -> declaracao_list statement_list .
+
+    $end            reduce using rule 1 (programa -> declaracao_list statement_list .)
+
+
+state 8
+
+    (9) statement_list -> statement . NEWLINE statement_list
+
+    NEWLINE         shift and go to state 15
+
+
+state 9
+
+    (10) statement_list -> empty .
+
+    $end            reduce using rule 10 (statement_list -> empty .)
+
+
+state 10
+
+    (11) statement -> ID . ASSIGN expr
+
+    ASSIGN          shift and go to state 16
+
+
+state 11
+
+    (12) statement -> IMPRIME . LPAREN expr RPAREN
+
+    LPAREN          shift and go to state 17
+
+
+state 12
+
+    (3) declaracao_list -> declaracao NEWLINE . declaracao_list
+    (3) declaracao_list -> . declaracao NEWLINE declaracao_list
+    (4) declaracao_list -> . empty
+    (5) declaracao -> . INT ID declaracao_prime
+    (6) declaracao -> . BOOLEAN ID declaracao_prime
+    (34) empty -> .
+
+    INT             shift and go to state 5
+    BOOLEAN         shift and go to state 6
+    ID              reduce using rule 34 (empty -> .)
+    IMPRIME         reduce using rule 34 (empty -> .)
+    $end            reduce using rule 34 (empty -> .)
+
+    declaracao                     shift and go to state 4
+    declaracao_list                shift and go to state 18
+    empty                          shift and go to state 19
+
+state 13
+
+    (5) declaracao -> INT ID . declaracao_prime
+    (7) declaracao_prime -> . ASSIGN expr
+    (8) declaracao_prime -> . empty
+    (34) empty -> .
+
+    ASSIGN          shift and go to state 21
+    NEWLINE         reduce using rule 34 (empty -> .)
+
+    declaracao_prime               shift and go to state 20
+    empty                          shift and go to state 22
+
+state 14
+
+    (6) declaracao -> BOOLEAN ID . declaracao_prime
+    (7) declaracao_prime -> . ASSIGN expr
+    (8) declaracao_prime -> . empty
+    (34) empty -> .
+
+    ASSIGN          shift and go to state 21
+    NEWLINE         reduce using rule 34 (empty -> .)
+
+    declaracao_prime               shift and go to state 23
+    empty                          shift and go to state 22
+
+state 15
+
+    (9) statement_list -> statement NEWLINE . statement_list
+    (9) statement_list -> . statement NEWLINE statement_list
+    (10) statement_list -> . empty
+    (11) statement -> . ID ASSIGN expr
+    (12) statement -> . IMPRIME LPAREN expr RPAREN
+    (34) empty -> .
+
+    ID              shift and go to state 10
+    IMPRIME         shift and go to state 11
+    $end            reduce using rule 34 (empty -> .)
+
+    statement                      shift and go to state 8
+    statement_list                 shift and go to state 24
+    empty                          shift and go to state 9
+
+state 16
+
+    (11) statement -> ID ASSIGN . expr
+    (13) expr -> . operator comparison
+    (14) operator -> . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    expr                           shift and go to state 26
+    operator                       shift and go to state 27
+    term                           shift and go to state 28
+    factor                         shift and go to state 29
+
+state 17
+
+    (12) statement -> IMPRIME LPAREN . expr RPAREN
+    (13) expr -> . operator comparison
+    (14) operator -> . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    expr                           shift and go to state 33
+    operator                       shift and go to state 27
+    term                           shift and go to state 28
+    factor                         shift and go to state 29
+
+state 18
+
+    (3) declaracao_list -> declaracao NEWLINE declaracao_list .
+
+    ID              reduce using rule 3 (declaracao_list -> declaracao NEWLINE declaracao_list .)
+    IMPRIME         reduce using rule 3 (declaracao_list -> declaracao NEWLINE declaracao_list .)
+    $end            reduce using rule 3 (declaracao_list -> declaracao NEWLINE declaracao_list .)
+
+
+state 19
+
+    (4) declaracao_list -> empty .
+
+    ID              reduce using rule 4 (declaracao_list -> empty .)
+    IMPRIME         reduce using rule 4 (declaracao_list -> empty .)
+    $end            reduce using rule 4 (declaracao_list -> empty .)
+
+
+state 20
+
+    (5) declaracao -> INT ID declaracao_prime .
+
+    NEWLINE         reduce using rule 5 (declaracao -> INT ID declaracao_prime .)
+
+
+state 21
+
+    (7) declaracao_prime -> ASSIGN . expr
+    (13) expr -> . operator comparison
+    (14) operator -> . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    expr                           shift and go to state 34
+    operator                       shift and go to state 27
+    term                           shift and go to state 28
+    factor                         shift and go to state 29
+
+state 22
+
+    (8) declaracao_prime -> empty .
+
+    NEWLINE         reduce using rule 8 (declaracao_prime -> empty .)
+
+
+state 23
+
+    (6) declaracao -> BOOLEAN ID declaracao_prime .
+
+    NEWLINE         reduce using rule 6 (declaracao -> BOOLEAN ID declaracao_prime .)
+
+
+state 24
+
+    (9) statement_list -> statement NEWLINE statement_list .
+
+    $end            reduce using rule 9 (statement_list -> statement NEWLINE statement_list .)
+
+
+state 25
+
+    (23) factor -> ID .
+
+    TIMES           reduce using rule 23 (factor -> ID .)
+    DIVIDE          reduce using rule 23 (factor -> ID .)
+    PLUS            reduce using rule 23 (factor -> ID .)
+    MINUS           reduce using rule 23 (factor -> ID .)
+    EQ              reduce using rule 23 (factor -> ID .)
+    NEQ             reduce using rule 23 (factor -> ID .)
+    LT              reduce using rule 23 (factor -> ID .)
+    GT              reduce using rule 23 (factor -> ID .)
+    LE              reduce using rule 23 (factor -> ID .)
+    GE              reduce using rule 23 (factor -> ID .)
+    NEWLINE         reduce using rule 23 (factor -> ID .)
+    RPAREN          reduce using rule 23 (factor -> ID .)
+
+
+state 26
+
+    (11) statement -> ID ASSIGN expr .
+
+    NEWLINE         reduce using rule 11 (statement -> ID ASSIGN expr .)
+
+
+state 27
+
+    (13) expr -> operator . comparison
+    (26) comparison -> . comparison_op operator comparison
+    (27) comparison -> . empty
+    (28) comparison_op -> . EQ
+    (29) comparison_op -> . NEQ
+    (30) comparison_op -> . LT
+    (31) comparison_op -> . GT
+    (32) comparison_op -> . LE
+    (33) comparison_op -> . GE
+    (34) empty -> .
+
+    EQ              shift and go to state 38
+    NEQ             shift and go to state 39
+    LT              shift and go to state 40
+    GT              shift and go to state 41
+    LE              shift and go to state 42
+    GE              shift and go to state 43
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    comparison                     shift and go to state 35
+    comparison_op                  shift and go to state 36
+    empty                          shift and go to state 37
+
+state 28
+
+    (14) operator -> term . expr_prime
+    (15) expr_prime -> . PLUS term expr_prime
+    (16) expr_prime -> . MINUS term expr_prime
+    (17) expr_prime -> . empty
+    (34) empty -> .
+
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    EQ              reduce using rule 34 (empty -> .)
+    NEQ             reduce using rule 34 (empty -> .)
+    LT              reduce using rule 34 (empty -> .)
+    GT              reduce using rule 34 (empty -> .)
+    LE              reduce using rule 34 (empty -> .)
+    GE              reduce using rule 34 (empty -> .)
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    expr_prime                     shift and go to state 44
+    empty                          shift and go to state 47
+
+state 29
+
+    (18) term -> factor . term_prime
+    (19) term_prime -> . TIMES factor term_prime
+    (20) term_prime -> . DIVIDE factor term_prime
+    (21) term_prime -> . empty
+    (34) empty -> .
+
+    TIMES           shift and go to state 49
+    DIVIDE          shift and go to state 50
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    EQ              reduce using rule 34 (empty -> .)
+    NEQ             reduce using rule 34 (empty -> .)
+    LT              reduce using rule 34 (empty -> .)
+    GT              reduce using rule 34 (empty -> .)
+    LE              reduce using rule 34 (empty -> .)
+    GE              reduce using rule 34 (empty -> .)
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    term_prime                     shift and go to state 48
+    empty                          shift and go to state 51
+
+state 30
+
+    (22) factor -> NUMBER .
+
+    TIMES           reduce using rule 22 (factor -> NUMBER .)
+    DIVIDE          reduce using rule 22 (factor -> NUMBER .)
+    PLUS            reduce using rule 22 (factor -> NUMBER .)
+    MINUS           reduce using rule 22 (factor -> NUMBER .)
+    EQ              reduce using rule 22 (factor -> NUMBER .)
+    NEQ             reduce using rule 22 (factor -> NUMBER .)
+    LT              reduce using rule 22 (factor -> NUMBER .)
+    GT              reduce using rule 22 (factor -> NUMBER .)
+    LE              reduce using rule 22 (factor -> NUMBER .)
+    GE              reduce using rule 22 (factor -> NUMBER .)
+    NEWLINE         reduce using rule 22 (factor -> NUMBER .)
+    RPAREN          reduce using rule 22 (factor -> NUMBER .)
+
+
+state 31
+
+    (24) factor -> LPAREN . expr RPAREN
+    (13) expr -> . operator comparison
+    (14) operator -> . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    expr                           shift and go to state 52
+    operator                       shift and go to state 27
+    term                           shift and go to state 28
+    factor                         shift and go to state 29
+
+state 32
+
+    (25) factor -> LOGIC .
+
+    TIMES           reduce using rule 25 (factor -> LOGIC .)
+    DIVIDE          reduce using rule 25 (factor -> LOGIC .)
+    PLUS            reduce using rule 25 (factor -> LOGIC .)
+    MINUS           reduce using rule 25 (factor -> LOGIC .)
+    EQ              reduce using rule 25 (factor -> LOGIC .)
+    NEQ             reduce using rule 25 (factor -> LOGIC .)
+    LT              reduce using rule 25 (factor -> LOGIC .)
+    GT              reduce using rule 25 (factor -> LOGIC .)
+    LE              reduce using rule 25 (factor -> LOGIC .)
+    GE              reduce using rule 25 (factor -> LOGIC .)
+    NEWLINE         reduce using rule 25 (factor -> LOGIC .)
+    RPAREN          reduce using rule 25 (factor -> LOGIC .)
+
+
+state 33
+
+    (12) statement -> IMPRIME LPAREN expr . RPAREN
+
+    RPAREN          shift and go to state 53
+
+
+state 34
+
+    (7) declaracao_prime -> ASSIGN expr .
+
+    NEWLINE         reduce using rule 7 (declaracao_prime -> ASSIGN expr .)
+
+
+state 35
+
+    (13) expr -> operator comparison .
+
+    NEWLINE         reduce using rule 13 (expr -> operator comparison .)
+    RPAREN          reduce using rule 13 (expr -> operator comparison .)
+
+
+state 36
+
+    (26) comparison -> comparison_op . operator comparison
+    (14) operator -> . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    operator                       shift and go to state 54
+    term                           shift and go to state 28
+    factor                         shift and go to state 29
+
+state 37
+
+    (27) comparison -> empty .
+
+    NEWLINE         reduce using rule 27 (comparison -> empty .)
+    RPAREN          reduce using rule 27 (comparison -> empty .)
+
+
+state 38
+
+    (28) comparison_op -> EQ .
+
+    NUMBER          reduce using rule 28 (comparison_op -> EQ .)
+    ID              reduce using rule 28 (comparison_op -> EQ .)
+    LPAREN          reduce using rule 28 (comparison_op -> EQ .)
+    LOGIC           reduce using rule 28 (comparison_op -> EQ .)
+
+
+state 39
+
+    (29) comparison_op -> NEQ .
+
+    NUMBER          reduce using rule 29 (comparison_op -> NEQ .)
+    ID              reduce using rule 29 (comparison_op -> NEQ .)
+    LPAREN          reduce using rule 29 (comparison_op -> NEQ .)
+    LOGIC           reduce using rule 29 (comparison_op -> NEQ .)
+
+
+state 40
+
+    (30) comparison_op -> LT .
+
+    NUMBER          reduce using rule 30 (comparison_op -> LT .)
+    ID              reduce using rule 30 (comparison_op -> LT .)
+    LPAREN          reduce using rule 30 (comparison_op -> LT .)
+    LOGIC           reduce using rule 30 (comparison_op -> LT .)
+
+
+state 41
+
+    (31) comparison_op -> GT .
+
+    NUMBER          reduce using rule 31 (comparison_op -> GT .)
+    ID              reduce using rule 31 (comparison_op -> GT .)
+    LPAREN          reduce using rule 31 (comparison_op -> GT .)
+    LOGIC           reduce using rule 31 (comparison_op -> GT .)
+
+
+state 42
+
+    (32) comparison_op -> LE .
+
+    NUMBER          reduce using rule 32 (comparison_op -> LE .)
+    ID              reduce using rule 32 (comparison_op -> LE .)
+    LPAREN          reduce using rule 32 (comparison_op -> LE .)
+    LOGIC           reduce using rule 32 (comparison_op -> LE .)
+
+
+state 43
+
+    (33) comparison_op -> GE .
+
+    NUMBER          reduce using rule 33 (comparison_op -> GE .)
+    ID              reduce using rule 33 (comparison_op -> GE .)
+    LPAREN          reduce using rule 33 (comparison_op -> GE .)
+    LOGIC           reduce using rule 33 (comparison_op -> GE .)
+
+
+state 44
+
+    (14) operator -> term expr_prime .
+
+    EQ              reduce using rule 14 (operator -> term expr_prime .)
+    NEQ             reduce using rule 14 (operator -> term expr_prime .)
+    LT              reduce using rule 14 (operator -> term expr_prime .)
+    GT              reduce using rule 14 (operator -> term expr_prime .)
+    LE              reduce using rule 14 (operator -> term expr_prime .)
+    GE              reduce using rule 14 (operator -> term expr_prime .)
+    NEWLINE         reduce using rule 14 (operator -> term expr_prime .)
+    RPAREN          reduce using rule 14 (operator -> term expr_prime .)
+
+
+state 45
+
+    (15) expr_prime -> PLUS . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    term                           shift and go to state 55
+    factor                         shift and go to state 29
+
+state 46
+
+    (16) expr_prime -> MINUS . term expr_prime
+    (18) term -> . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    term                           shift and go to state 56
+    factor                         shift and go to state 29
+
+state 47
+
+    (17) expr_prime -> empty .
+
+    EQ              reduce using rule 17 (expr_prime -> empty .)
+    NEQ             reduce using rule 17 (expr_prime -> empty .)
+    LT              reduce using rule 17 (expr_prime -> empty .)
+    GT              reduce using rule 17 (expr_prime -> empty .)
+    LE              reduce using rule 17 (expr_prime -> empty .)
+    GE              reduce using rule 17 (expr_prime -> empty .)
+    NEWLINE         reduce using rule 17 (expr_prime -> empty .)
+    RPAREN          reduce using rule 17 (expr_prime -> empty .)
+
+
+state 48
+
+    (18) term -> factor term_prime .
+
+    PLUS            reduce using rule 18 (term -> factor term_prime .)
+    MINUS           reduce using rule 18 (term -> factor term_prime .)
+    EQ              reduce using rule 18 (term -> factor term_prime .)
+    NEQ             reduce using rule 18 (term -> factor term_prime .)
+    LT              reduce using rule 18 (term -> factor term_prime .)
+    GT              reduce using rule 18 (term -> factor term_prime .)
+    LE              reduce using rule 18 (term -> factor term_prime .)
+    GE              reduce using rule 18 (term -> factor term_prime .)
+    NEWLINE         reduce using rule 18 (term -> factor term_prime .)
+    RPAREN          reduce using rule 18 (term -> factor term_prime .)
+
+
+state 49
+
+    (19) term_prime -> TIMES . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    factor                         shift and go to state 57
+
+state 50
+
+    (20) term_prime -> DIVIDE . factor term_prime
+    (22) factor -> . NUMBER
+    (23) factor -> . ID
+    (24) factor -> . LPAREN expr RPAREN
+    (25) factor -> . LOGIC
+
+    NUMBER          shift and go to state 30
+    ID              shift and go to state 25
+    LPAREN          shift and go to state 31
+    LOGIC           shift and go to state 32
+
+    factor                         shift and go to state 58
+
+state 51
+
+    (21) term_prime -> empty .
+
+    PLUS            reduce using rule 21 (term_prime -> empty .)
+    MINUS           reduce using rule 21 (term_prime -> empty .)
+    EQ              reduce using rule 21 (term_prime -> empty .)
+    NEQ             reduce using rule 21 (term_prime -> empty .)
+    LT              reduce using rule 21 (term_prime -> empty .)
+    GT              reduce using rule 21 (term_prime -> empty .)
+    LE              reduce using rule 21 (term_prime -> empty .)
+    GE              reduce using rule 21 (term_prime -> empty .)
+    NEWLINE         reduce using rule 21 (term_prime -> empty .)
+    RPAREN          reduce using rule 21 (term_prime -> empty .)
+
+
+state 52
+
+    (24) factor -> LPAREN expr . RPAREN
+
+    RPAREN          shift and go to state 59
+
+
+state 53
+
+    (12) statement -> IMPRIME LPAREN expr RPAREN .
+
+    NEWLINE         reduce using rule 12 (statement -> IMPRIME LPAREN expr RPAREN .)
+
+
+state 54
+
+    (26) comparison -> comparison_op operator . comparison
+    (26) comparison -> . comparison_op operator comparison
+    (27) comparison -> . empty
+    (28) comparison_op -> . EQ
+    (29) comparison_op -> . NEQ
+    (30) comparison_op -> . LT
+    (31) comparison_op -> . GT
+    (32) comparison_op -> . LE
+    (33) comparison_op -> . GE
+    (34) empty -> .
+
+    EQ              shift and go to state 38
+    NEQ             shift and go to state 39
+    LT              shift and go to state 40
+    GT              shift and go to state 41
+    LE              shift and go to state 42
+    GE              shift and go to state 43
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    comparison_op                  shift and go to state 36
+    comparison                     shift and go to state 60
+    empty                          shift and go to state 37
+
+state 55
+
+    (15) expr_prime -> PLUS term . expr_prime
+    (15) expr_prime -> . PLUS term expr_prime
+    (16) expr_prime -> . MINUS term expr_prime
+    (17) expr_prime -> . empty
+    (34) empty -> .
+
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    EQ              reduce using rule 34 (empty -> .)
+    NEQ             reduce using rule 34 (empty -> .)
+    LT              reduce using rule 34 (empty -> .)
+    GT              reduce using rule 34 (empty -> .)
+    LE              reduce using rule 34 (empty -> .)
+    GE              reduce using rule 34 (empty -> .)
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    expr_prime                     shift and go to state 61
+    empty                          shift and go to state 47
+
+state 56
+
+    (16) expr_prime -> MINUS term . expr_prime
+    (15) expr_prime -> . PLUS term expr_prime
+    (16) expr_prime -> . MINUS term expr_prime
+    (17) expr_prime -> . empty
+    (34) empty -> .
+
+    PLUS            shift and go to state 45
+    MINUS           shift and go to state 46
+    EQ              reduce using rule 34 (empty -> .)
+    NEQ             reduce using rule 34 (empty -> .)
+    LT              reduce using rule 34 (empty -> .)
+    GT              reduce using rule 34 (empty -> .)
+    LE              reduce using rule 34 (empty -> .)
+    GE              reduce using rule 34 (empty -> .)
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    expr_prime                     shift and go to state 62
+    empty                          shift and go to state 47
+
+state 57
+
+    (19) term_prime -> TIMES factor . term_prime
+    (19) term_prime -> . TIMES factor term_prime
+    (20) term_prime -> . DIVIDE factor term_prime
+    (21) term_prime -> . empty
+    (34) empty -> .
+
+    TIMES           shift and go to state 49
+    DIVIDE          shift and go to state 50
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    EQ              reduce using rule 34 (empty -> .)
+    NEQ             reduce using rule 34 (empty -> .)
+    LT              reduce using rule 34 (empty -> .)
+    GT              reduce using rule 34 (empty -> .)
+    LE              reduce using rule 34 (empty -> .)
+    GE              reduce using rule 34 (empty -> .)
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    term_prime                     shift and go to state 63
+    empty                          shift and go to state 51
+
+state 58
+
+    (20) term_prime -> DIVIDE factor . term_prime
+    (19) term_prime -> . TIMES factor term_prime
+    (20) term_prime -> . DIVIDE factor term_prime
+    (21) term_prime -> . empty
+    (34) empty -> .
+
+    TIMES           shift and go to state 49
+    DIVIDE          shift and go to state 50
+    PLUS            reduce using rule 34 (empty -> .)
+    MINUS           reduce using rule 34 (empty -> .)
+    EQ              reduce using rule 34 (empty -> .)
+    NEQ             reduce using rule 34 (empty -> .)
+    LT              reduce using rule 34 (empty -> .)
+    GT              reduce using rule 34 (empty -> .)
+    LE              reduce using rule 34 (empty -> .)
+    GE              reduce using rule 34 (empty -> .)
+    NEWLINE         reduce using rule 34 (empty -> .)
+    RPAREN          reduce using rule 34 (empty -> .)
+
+    term_prime                     shift and go to state 64
+    empty                          shift and go to state 51
+
+state 59
+
+    (24) factor -> LPAREN expr RPAREN .
+
+    TIMES           reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    DIVIDE          reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    PLUS            reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    MINUS           reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    EQ              reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    NEQ             reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    LT              reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    GT              reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    LE              reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    GE              reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    NEWLINE         reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+    RPAREN          reduce using rule 24 (factor -> LPAREN expr RPAREN .)
+
+
+state 60
+
+    (26) comparison -> comparison_op operator comparison .
+
+    NEWLINE         reduce using rule 26 (comparison -> comparison_op operator comparison .)
+    RPAREN          reduce using rule 26 (comparison -> comparison_op operator comparison .)
+
+
+state 61
+
+    (15) expr_prime -> PLUS term expr_prime .
+
+    EQ              reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    NEQ             reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    LT              reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    GT              reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    LE              reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    GE              reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    NEWLINE         reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+    RPAREN          reduce using rule 15 (expr_prime -> PLUS term expr_prime .)
+
+
+state 62
+
+    (16) expr_prime -> MINUS term expr_prime .
+
+    EQ              reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    NEQ             reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    LT              reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    GT              reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    LE              reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    GE              reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    NEWLINE         reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+    RPAREN          reduce using rule 16 (expr_prime -> MINUS term expr_prime .)
+
+
+state 63
+
+    (19) term_prime -> TIMES factor term_prime .
+
+    PLUS            reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    MINUS           reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    EQ              reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    NEQ             reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    LT              reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    GT              reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    LE              reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    GE              reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    NEWLINE         reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+    RPAREN          reduce using rule 19 (term_prime -> TIMES factor term_prime .)
+
+
+state 64
+
+    (20) term_prime -> DIVIDE factor term_prime .
+
+    PLUS            reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    MINUS           reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    EQ              reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    NEQ             reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    LT              reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    GT              reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    LE              reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    GE              reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    NEWLINE         reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+    RPAREN          reduce using rule 20 (term_prime -> DIVIDE factor term_prime .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: reduce/reduce conflict in state 3 resolved using rule (programa -> empty)
+WARNING: rejected rule (declaracao_list -> empty) in state 3
